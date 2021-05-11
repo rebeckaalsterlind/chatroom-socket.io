@@ -1,0 +1,56 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Express</h1>
+  <p>Welcome to Socket</p>
+
+  <ul id="chat"></ul>
+
+  <form id="form">
+    <input id="input" />
+    <button>Send</button>
+  </form>
+
+<script src="socket.io/socket.io.js"></script>
+<script>
+  
+  const socket = io();
+
+  form = document.getElementById("form");
+  input = document.getElementById("input");
+  
+  
+
+  form.addEventListener("submit", function(evt) {
+    
+    evt.preventDefault();
+    
+    console.log('send chat');
+
+    if(input.value) {
+      socket.emit("chat message", {text: input.value});
+      input.value = "";
+    }
+
+  });
+
+  socket.on("chat message", function(msg){
+    
+    chat = document.getElementById("chat");
+    
+    console.log(msg);
+
+    chat.insertAdjacentHTML("beforeend", `<li> ${msg.text} </li>`);
+    
+  });
+  
+
+</script>
+</body>
+
+</html>
