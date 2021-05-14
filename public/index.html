@@ -6,51 +6,105 @@
 </head>
 
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Socket</p>
-
-  <ul id="chat"></ul>
-
-  <form id="form">
-    <input id="input" />
-    <button>Send</button>
+  <header>
+    <h1>Welcome to chat forum</h1>
+  </header>
+  <main id="main"> 
+    <section id="join">
+      <form id="userForm">
+        <input id="username" />
+        <button>Join</button>
+      </form>
+    </section>
+    <section id="chat"></section>
+  </main>
+  
+  <form id="chatForm">
+    <input id="message" />
+    <button id="sendBtn">Send</button>
   </form>
+
+  
 
 <script src="socket.io/socket.io.js"></script>
 <script>
-  
   const socket = io();
+  //CHAT CONTAINER
+  chat = document.getElementById("chat");
+  chat.style.display = "none";
+  //LOGIN FORM
+  join = document.getElementById("join");
+  userForm = document.getElementById("userForm");
+  username= document.getElementById("username");
+  //CHATINPUT
+  chatForm = document.getElementById("chatForm");
+  message = document.getElementById("message");
+  chatForm.style.display = "none";
 
-  form = document.getElementById("form");
-  input = document.getElementById("input");
-  
-  
-
-  form.addEventListener("submit", function(evt) {
+  userForm.addEventListener("submit", function(evt) {
     
     evt.preventDefault();
+
+    console.log('send username');
+
+    if(username.value) {
+      socket.emit("username", {user: username.value});
+      username.value = "";
+      chat.style.display = "block";
+      chatForm.style.display = "flex";
+      join.style.display = "none";
+    };
+
+
+  });
     
+
+ 
+  chatForm = document.getElementById("chatForm");
+  message = document.getElementById("message");
+
+
+  chatForm.addEventListener("submit", function(evt) {
+    
+    evt.preventDefault();
+
     console.log('send chat');
 
-    if(input.value) {
-      socket.emit("chat message", {text: input.value});
-      input.value = "";
-    }
+    if(message.value) {
+      socket.emit("chat message", {text: message.value});
+      message.value = "";
+    };
+
+
+  });
+    
+
+  socket.on("chat message", msg => {
+ 
+    console.log("chat msg", msg);
+    chat.insertAdjacentHTML("beforeend", `<p> ${msg.text}</p>`);
 
   });
 
-  socket.on("chat message", function(msg){
-    
-    chat = document.getElementById("chat");
-    
-    console.log(msg);
+  socket.on("connection", msg => {
 
-    chat.insertAdjacentHTML("beforeend", `<li> ${msg.text} </li>`);
-    
+    console.log("connection", msg);
+    chat.insertAdjacentHTML("beforeend", `<p> ${msg}</p>`);
+
   });
+
+  // socket.on("disconnect", msg => {
+  //   console.log('msg dis', msg);
+  //   chat.insertAdjacentHTML("beforeend", `<p> ${msg}</p>`);
+
+  // });
+
   
 
 </script>
 </body>
 
 </html>
+
+
+

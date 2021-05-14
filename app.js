@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var randomColor = require('randomcolor');
+var color = randomColor();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,23 +18,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var randomColor = require('randomcolor');
+var color = randomColor();
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-io.on("connection", function (socket) {
-    
+io.on("connection", socket => {
+    socket.on("username", user => {
+        console.log('username:', user);
+        //io.emit("chat message", user); 
+    });
+
+
     console.log('User connected');
+    //o.emit("connection", "user connected"); 
+    socket.broadcast.emit("connection", "New user connected"); //show to all except itself
 
-    socket.on("disconnect", function() {
-        console.log('User disconnected');
+    socket.on("chat message", msg => {
+        console.log('chat msg:', msg);
+        io.emit("chat message", msg); 
     });
+  
+    socket.on("disconnect", () => {
 
-    socket.on("chat message", function(msg) {
-        console.log('msg', msg);
-        io.emit("chat message", msg);
+        io.emit("User disconnected", "User disconnected");
+        console.log('msg:', "disconnected");
     });
-
 
 });
+  
+
+
 
 module.exports = {app: app, server: server};
