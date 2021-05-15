@@ -44,9 +44,12 @@ socket.on("message", msg => {
 
 
 function outputMessage(message) {
+    let str = message.text;
+    let result = str.fontcolor(`"${message.color}"`);
+    
     chat.insertAdjacentHTML("beforeend", `
     <p class="sent-message"><span class="msgDetails">${message.username} ${message.time}</span><br /> 
-    ${message.text}</p>`);
+    ${result}</p>`);
 };
 
 //ADD ROOM NAME TO DOM
