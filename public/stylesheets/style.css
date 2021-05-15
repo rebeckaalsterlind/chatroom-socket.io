@@ -31,7 +31,7 @@ header {
 }
 
 #chat {
-  min-height: 200px;
+  height: 200px;
   overflow: auto;
   width: 500px;
   border: 2px solid black;
@@ -59,4 +59,15 @@ header {
 #sendBtn {
   width: 60px;
   height: 40px;
+}
+
+.sent-message {
+  background-color:beige;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 1rem;
+}
+
+.msgDetails {
+  color: grey;
 }
