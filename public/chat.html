@@ -3,25 +3,29 @@
 <head>
   <title>CHAT</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <header>
-    <h1>Welcome to the <span id="room-name"></span> room</h1>
+    <h1>The <span id="room-name"></span><br />
+    chatroom<span class="dot">.</span></h1>
   </header>
   <main id="main"> 
-    <section id="sidebar">
-        <h3>Users: </h3>
+  <section class="chat-wrapper">
+    <article id="sidebar">
+        <h3>USERS</h3>
         <ul id="users"></ul>
-    </section>
-    <section id="chat"></section>
+    </article>
+    <article id="chat"></article>  
+  </section>
     <form action="index.html">
-        <button type="submit">Leave Chat</button>
+      <button type="submit">Leave Chatroom</button>
     </form>
   </main>
-  
   <form id="chatForm">
-    <input id="message" placeholder="Enter message"/>
+    <input id="message" placeholder="..."/>
     <button id="sendBtn">Send</button>
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous"></script>

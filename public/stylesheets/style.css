@@ -4,38 +4,76 @@
   box-sizing: border-box;
 }
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgb(121, 124, 112);
+  font-family: 'Poppins', sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
 
-#colored {
-  color: green;
-}
 header {
   position: fixed;
   top: 0;
   width: 100%;
-  text-align: center;
-  padding-top: 30px;
+  padding: 30px;
 }
+
+header > h1 {
+  color:rgb(48, 66, 104);
+  line-height: .4;
+}
+
+.dot {
+  color:tomato;
+  font-size: 4rem;
+}
+
 #main {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   height: 100vh;
   width: 100%;
+}
+
+#join {
+  padding: 50px;
+  border: 2px solid rgb(48, 66, 104);
+  border-radius: 1rem;
+}
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-flow: column nowrap;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.chat-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-flow: row wrap;
+}
+
+#sidebar {
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 1rem;
+  margin: 10px;
 }
 
 #chat {
   height: 200px;
   overflow: auto;
-  width: 500px;
+  min-width: 500px;
   border: 2px solid black;
-  margin-bottom: 10px;
+  border-radius: 1rem;
+  margin: 10px;
   overflow: auto;
 }
 
@@ -48,26 +86,53 @@ header {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding: 0 10px;
+  background-color: rgb(48, 66, 104);
+}
+
+li {
+  list-style-type: none;
 }
 
 #message {
   height: 40px;
   flex: 85%;
+  margin: 7px;
 }
 
 #sendBtn {
   width: 60px;
   height: 40px;
+  margin-right: 7px;
 }
 
 .sent-message {
-  background-color:beige;
-  margin: 5px;
-  padding: 10px;
+  background-color:rgba(255, 255, 255, 0.692);
+  margin: 7px;
+  padding: 7px;
   border-radius: 1rem;
 }
 
 .msgDetails {
   color: grey;
+}
+
+button, input {
+  border: 2px solid black;
+  border-radius: .7rem;
+  padding: 7px;
+  background-color: rgba(255, 255, 255, 0.692);
+  color: tomato;
+  font-family: 'Poppins', sans-serif;
+}
+
+input::placeholder {
+  color: tomato;
+}
+
+#room {
+  border: none;
+  outline: none;
+  margin: 10px 0;
+  background-color: transparent;
+  font-family: 'Poppins', sans-serif;
 }

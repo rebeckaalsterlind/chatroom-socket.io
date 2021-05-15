@@ -3,7 +3,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var randomColor = require('randomcolor');
-var color = randomColor();
 const formatMessage = require("./utils/messages");
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require("./utils/users");
 var indexRouter = require('./routes/index');
@@ -32,18 +31,20 @@ const users = [];
 io.on("connection", socket => {
 
     socket.on('joinRoom', ({username, room}) => {
-        //JOIN USER
         let color = randomColor();
+        //SET USER
         const user = userJoin(socket.id, username, room, color);
-        console.log('user', user);
+ 
+        //JOIN USER
         socket.join(user.room)
+
         //MESSAGE WHEN USER CONNECTS
         socket.broadcast
         .to(user.room)
         .emit("message", formatMessage(botName, `${user.username.toUpperCase()} has joined the session`), user.color); //show to all except itself
         
         //MESSAGE TO NEW USER
-        socket.emit("message", formatMessage(botName, `You have joined the ${user.room.toUpperCase()} room as ${user.username.toUpperCase()}`, user.color));
+        socket.emit("message", formatMessage(botName, `Welcome to the ${user.room.toUpperCase()} room ${user.username.toUpperCase()}`, user.color));
         
         //USER AND ROOM INFO
         io.to(user.room).emit('roomUsers', {
@@ -57,10 +58,9 @@ io.on("connection", socket => {
     //LISTEN FOR CHAT MESSAGE
     socket.on("message", msg => {
         const user = getCurrentUser(socket.id);
-        console.log('user.color', user.color);
-        console.log('chat msg:', msg);
+
         io.to(user.room)
-        .emit("message", formatMessage(user.username.toUpperCase(), msg, user.color.toString())); 
+        .emit("message", formatMessage(user.username.toUpperCase(), msg, user.color)); 
     });
   
     //DISCONNECT

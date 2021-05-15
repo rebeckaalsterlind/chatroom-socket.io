@@ -2,7 +2,6 @@
 const roomName = document.getElementById("room-name");
 const userList = document.getElementById("users");
 const chat = document.getElementById("chat");
-
 const chatForm = document.getElementById("chatForm");
 const message = document.getElementById("message");
  
@@ -20,10 +19,10 @@ socket.emit('joinRoom', {username, room})
 socket.on('roomUsers', ({room, users}) => {
     outputRoomName(room);
     outputUsers(users)
-})
+});
+
 // //SENDING MESSAGES
 chatForm.addEventListener("submit", (evt) => {
-  
   evt.preventDefault();
 
   if(message.value) {
@@ -35,14 +34,14 @@ chatForm.addEventListener("submit", (evt) => {
 
 });
   
-
+//SET SCROLLER POSITION
 socket.on("message", msg => {
   outputMessage(msg);
   chat.scrollTop = chat.scrollHeight;
 });
 
 
-
+//PRINT MESSAGE
 function outputMessage(message) {
     let str = message.text;
     let result = str.fontcolor(`"${message.color}"`);
